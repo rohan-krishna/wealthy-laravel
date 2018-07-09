@@ -1,0 +1,43 @@
+{% extends "journal/master.html" %}
+
+{% block content %}
+
+    <div class="ui container">
+        <div class="ui segment">
+            
+            <h3>List of Entries</h3>
+            
+            <hr class="ui divider">
+
+            <a href="{% url 'journal:add' %}" class="ui green button">
+                Add New Entry
+            </a>
+
+            <table class="ui celled padded table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Title</th>
+                        <th>Entry Date</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for entry in entries %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ entry.title }}</td>
+                        <td>{{ entry.entry_date|date:"D, d M, Y" }}</td>
+                        <td>
+                            <a href="{% url 'journal:edit' entry.id %}" class="ui orange button">
+                                Edit Entry
+                            </a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+{% endblock content %}

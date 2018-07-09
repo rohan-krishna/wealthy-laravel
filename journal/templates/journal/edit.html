@@ -1,0 +1,46 @@
+{% extends "journal/master.html" %}
+
+{% block content %}
+  
+<div class="ui container">
+
+    <div class="ui segment">
+        <div class="ui breadcrumb">
+            <a class="section" href="{% url 'journal:index' %}">Home</a>
+        </div>
+    </div>
+
+    <div class="ui segment">
+        <h3>Edit Entry - {{ entry.title }}</h3>
+        <hr class="ui divider">
+
+        <form action="{% url 'journal:edit' entry.id %}" class="ui form" method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button class="ui button blue">
+                Update
+            </button>
+        </form>
+
+    </div>
+</div>
+
+{% endblock content %}
+
+{% block scripts %}
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/4.7.13/tinymce.min.js"></script>
+<script>
+    $(document).ready(function() {
+        tinymce.init({
+            selector: '#id_body',
+            plugins: "lists",
+            toolbar: [ 
+            'bold italic underline | list | alignleft aligncenter alignright | numlist bullist',
+            ],
+            menubar: false
+        });
+    })
+</script>
+
+{% endblock scripts %}
