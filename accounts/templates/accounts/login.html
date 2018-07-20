@@ -1,0 +1,45 @@
+{% extends "household/master.html" %}
+
+{% block title %}
+Sign-in to Wealthy
+{% endblock title %}
+
+{% block content %}
+
+
+
+<div class="ui container" style="padding-top: 3em;">
+    <div class="ui centered grid">
+        <div class="eight wide column">
+            <div class="ui segment">
+                <h3>Sign-in to continue ...</h3>
+                <hr class="ui divider">
+                <form method="post" class="ui form">
+                    {% csrf_token %}
+
+                    {{ form.as_p }}
+
+                    <div class="field">
+                        <button class="ui green button">
+                            Sign-in
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% if messages %}
+<div class="ui container" style="margin-top: 1.52em;">
+    <div class="ui message">
+        <ul class="messages">
+            {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+                {% endfor %}
+        </ul>
+    </div>
+</div>
+{% endif %}
+
+{% endblock content %}

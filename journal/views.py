@@ -1,10 +1,14 @@
 from django.shortcuts import render, redirect
 from .forms import EntryForm
+from django.contrib.auth.decorators import login_required
 # Create your views here.
+
+@login_required
 def index(request):
     entries = request.user.entries.all
     return render(request, 'journal/index.html', { "entries" : entries })
 
+@login_required
 def add(request):
     
     if request.method == 'POST':
@@ -17,7 +21,7 @@ def add(request):
     else:
         return render(request, 'journal/add.html', { "form" : EntryForm })
 
-
+@login_required
 def edit(request, id):
     entry = request.user.entries.get(pk=id)
 
