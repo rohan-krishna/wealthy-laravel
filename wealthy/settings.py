@@ -28,7 +28,7 @@ SECRET_KEY = '(okp6-8#bte5lp$hb_)msdh_4b*^u(q#sl!*s&z%w2rnxmg!yu'
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    'wealthy-env.pqy8qzq9i4.us-west-2.elasticbeanstalk.com',
+    '54.213.107.17',
 ]
 
 
