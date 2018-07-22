@@ -24,6 +24,5 @@ urlpatterns = [
     path('accounts/', include('accounts.urls')),
     path('ideabin/', include('ideabin.urls')),
     path('oauth/', include('social_django.urls', namespace='social')),  # <--
-    path('admin/', admin.site.urls),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
