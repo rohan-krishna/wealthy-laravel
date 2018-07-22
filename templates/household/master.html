@@ -18,6 +18,23 @@
             <a href="{% url 'ideabin:index' %}" class="item">
                 IdeaBin
             </a>
+
+            <div class="right menu">
+            {% if request.user.is_authenticated %}
+                <div class="ui dropdown item">
+                    <i class="icon user"></i>
+
+                    <div class="menu">
+                        <a href="{% url 'accounts:settings' %}" class="item">Profile Settings</a>
+                        <a href="{% url 'accounts:logout' %}" class="item">Logout</a>
+                    </div>
+                </div>
+            {% else %}
+                <a href="{% url 'accounts:login' %}" class="item">
+                    Login
+                </a>
+            {% endif %}
+            </div>
         </div>
 
         {% block content %}
@@ -28,6 +45,11 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.3/semantic.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/datepicker/0.6.5/datepicker.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('.ui.dropdown').dropdown();
+        })
+    </script>
     {% block scripts %}{% endblock scripts %}
 </body>
 </html>

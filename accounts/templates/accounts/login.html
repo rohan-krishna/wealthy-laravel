@@ -10,7 +10,7 @@ Sign-in to Wealthy
 
 <div class="ui container" style="padding-top: 3em;">
     <div class="ui centered grid">
-        <div class="eight wide column">
+        <div class="twelve wide column">
             <div class="ui segment">
                 <h3>Sign-in to continue ...</h3>
                 <hr class="ui divider">
@@ -23,6 +23,11 @@ Sign-in to Wealthy
                         <button class="ui green button">
                             Sign-in
                         </button>
+
+                        <a href="{% url 'social:begin' 'github' %}" class="ui black labeled icon button">
+                            <i class="icon github"></i>
+                            Login with GitHub
+                        </a>
                     </div>
                 </form>
             </div>
@@ -35,8 +40,8 @@ Sign-in to Wealthy
     <div class="ui message">
         <ul class="messages">
             {% for message in messages %}
-            <li{% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
-                {% endfor %}
+                <li{% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+            {% endfor %}
         </ul>
     </div>
 </div>

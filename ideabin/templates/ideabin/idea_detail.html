@@ -1,18 +1,53 @@
 {% extends 'household/master.html' %}
 
+{% load static %}
+
 {% block title %}
 Showing Idea
 {% endblock title %}
 
 {% block content %}
 
-<div class="ui segment">
+<div class="ui">
     
-    <h1 class="ui header">
+    <h1 class="ui centered header" style="margin: 1.52em 0 1.52em;">
+        <i class="icon lightbulb outline"></i>
         {{ idea_detail.title }}
     </h1>
 
-    {{ idea.body }}
+    
+    <div class="ui grid">
+        {% if idea_detail.image %}
+        <div class="six wide column">
+                <div class="ui blue segment">
+                    <img src="{{ idea_detail.image.url }}" alt="{{ idea_detail.title }}" class="ui fluid image">
+                </div>
+        </div>
+        {% endif %}
+        <div class="ten wide column">
+            <div class="ui segment blue">
+                {% autoescape off %}
+                {{ idea_detail.body }}
+                {% endautoescape %}
+            </div>
+        </div>
+    </div>
+
+    <div class="ui segment">
+        <a class="ui animated blue button" tabindex="0" href="{% url 'ideabin:edit' pk=idea_detail.pk %}">
+            <div class="visible content">Edit</div>
+            <div class="hidden content">
+                <i class="wrench icon"></i>
+            </div>
+        </a>
+
+        <a class="ui animated red button" tabindex="0" href="{% url 'ideabin:delete' pk=idea_detail.pk %}">
+            <div class="visible content">Delete</div>
+            <div class="hidden content">
+                <i class="trash icon"></i>
+            </div>
+        </a>
+    </div>
 
 </div>
 

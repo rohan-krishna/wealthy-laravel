@@ -1,6 +1,12 @@
 from django.shortcuts import render, redirect
 from .forms import EntryForm
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
+
+from django.views.generic import DeleteView
+from django.urls import reverse_lazy
+
+from . models import Entry
 # Create your views here.
 
 @login_required
@@ -36,3 +42,8 @@ def edit(request, id):
     else:
         form = EntryForm(instance=entry)
         return render(request, 'journal/edit.html', { "entry" : entry, "form" : form })
+
+
+class EntryDeleteView(LoginRequiredMixin, DeleteView):
+    model = Entry
+    success_url = reverse_lazy("journal:index")

@@ -7,8 +7,19 @@ Ideabin
 {% block content %}
 
 <div class="ui container">
-    <div class="ui segment">
-        <h3>Listing All Ideas - using Django's Generic ListView</h3>
+    <div>
+
+        <h1 class="ui centered header" style="margin-bottom: 1.52em;">
+            <i class="icon database"></i>
+            Listing All Ideas
+        </h1>
+
+        <a class="ui animated green button" tabindex="0" href="{% url 'ideabin:add' %}">
+            <div class="visible content">Add New Idea</div>
+            <div class="hidden content">
+                <i class="plus icon"></i>
+            </div>
+        </a>
 
         <table class="ui celled padded blue table">
             <thead>
@@ -34,8 +45,17 @@ Ideabin
                         {{ idea.created_at | date }}
                     </td>
                     <td>
-                        <a href="#">
-                            Edit
+                        <a class="ui animated blue button" tabindex="0" href="{% url 'ideabin:edit' pk=idea.pk %}">
+                            <div class="visible content">Edit</div>
+                            <div class="hidden content">
+                                <i class="wrench icon"></i>
+                            </div>
+                        </a>
+                        <a class="ui animated red button" tabindex="0" href="{% url 'ideabin:delete' pk=idea.pk %}">
+                            <div class="visible content">Delete</div>
+                            <div class="hidden content">
+                                <i class="trash icon"></i>
+                            </div>
                         </a>
                     </td>
                 </tr>

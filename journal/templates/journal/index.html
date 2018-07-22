@@ -3,17 +3,21 @@
 {% block content %}
 
     <div class="ui container">
-        <div class="ui segment">
+        <div>
             
-            <h3>List of Entries</h3>
+            <h1 class="ui centered header" style="margin-bottom: 1.52em;">
+                <i class="file alternate outline icon"></i>
+                List of Entries
+            </h1>
             
-            <hr class="ui divider">
-
-            <a href="{% url 'journal:add' %}" class="ui green button">
-                Add New Entry
+            <a class="ui animated green button" tabindex="0" href="{% url 'journal:add' %}">
+                <div class="visible content">Add New Entry</div>
+                <div class="hidden content">
+                    <i class="plus icon"></i>
+                </div>
             </a>
 
-            <table class="ui celled padded table">
+            <table class="ui celled padded green table">
                 <thead>
                     <tr>
                         <th>#</th>
@@ -29,8 +33,17 @@
                         <td>{{ entry.title }}</td>
                         <td>{{ entry.entry_date|date:"D, d M, Y" }}</td>
                         <td>
-                            <a href="{% url 'journal:edit' entry.id %}" class="ui orange button">
-                                Edit Entry
+                            <a class="ui animated orange button" tabindex="0" href="{% url 'journal:edit' entry.id %}">
+                                <div class="visible content">Edit Idea</div>
+                                <div class="hidden content">
+                                    <i class="wrench icon"></i>
+                                </div>
+                            </a>
+                            <a class="ui animated red button" tabindex="0" href="{% url 'journal:delete' pk=entry.id %}">
+                                <div class="visible content">Delete Idea</div>
+                                <div class="hidden content">
+                                    <i class="trash icon"></i>
+                                </div>
                             </a>
                         </td>
                     </tr>

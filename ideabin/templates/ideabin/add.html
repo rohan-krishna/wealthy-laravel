@@ -19,7 +19,7 @@
             {% endif %}
         </h1>
     
-        <form action="{% url 'ideabin:add' %}" class="ui form" method="post">
+        <form class="ui form" method="post" enctype="multipart/form-data">
             {% csrf_token %}
             {{ form.as_p }}
             <button class="ui button green">

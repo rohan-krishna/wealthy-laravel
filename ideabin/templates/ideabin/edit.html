@@ -14,7 +14,7 @@
         <h3>Edit Idea - {{ idea.title }}</h3>
         <hr class="ui divider">
 
-        <form action="{% url 'ideabin:edit' idea.id %}" class="ui form" method="post">
+        <form class="ui form" method="post" enctype="multipart/form-data">
             {% csrf_token %}
             {{ form.as_p }}
             <button class="ui button blue">
