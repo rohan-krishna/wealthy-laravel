@@ -6,14 +6,20 @@
 
     <div class="ui segment">
         <div class="ui breadcrumb">
-            <a class="section" href="{% url 'journal:index' %}">Home</a>
+            <a class="section" href="{% url 'ideabin:index' %}">Home</a>
         </div>
     </div>
 
     <div class="ui segment">
-        <h3>Add New Entry</h3>
+        <h1>
+            {% if not form.instance.pk %}
+                Add New Idea
+            {% else %}
+                Update Idea
+            {% endif %}
+        </h1>
     
-        <form action="{% url 'journal:add' %}" class="ui form" method="post">
+        <form action="{% url 'ideabin:add' %}" class="ui form" method="post">
             {% csrf_token %}
             {{ form.as_p }}
             <button class="ui button green">
@@ -38,11 +44,6 @@
             ],
             menubar: false
         });
-
-        $('#id_entry_date').datepicker({
-            language: 'en-US',
-            format: 'yyyy-mm-dd'
-        })
     })
 </script>
 

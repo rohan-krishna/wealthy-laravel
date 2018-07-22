@@ -1,25 +1,27 @@
 {% extends "household/master.html" %}
 
 {% block content %}
-
+  
 <div class="ui container">
 
     <div class="ui segment">
         <div class="ui breadcrumb">
-            <a class="section" href="{% url 'journal:index' %}">Home</a>
+            <a class="section" href="{% url 'ideabin:index' %}">Home</a>
         </div>
     </div>
 
     <div class="ui segment">
-        <h3>Add New Entry</h3>
-    
-        <form action="{% url 'journal:add' %}" class="ui form" method="post">
+        <h3>Edit Idea - {{ idea.title }}</h3>
+        <hr class="ui divider">
+
+        <form action="{% url 'ideabin:edit' idea.id %}" class="ui form" method="post">
             {% csrf_token %}
             {{ form.as_p }}
-            <button class="ui button green">
-                Submit
+            <button class="ui button blue">
+                Update
             </button>
         </form>
+
     </div>
 </div>
 
@@ -29,20 +31,15 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/4.7.13/tinymce.min.js"></script>
 <script>
-    $(document).ready(function () {
+    $(document).ready(function() {
         tinymce.init({
             selector: '#id_body',
             plugins: "lists",
-            toolbar: [
-                'bold italic underline | list | alignleft aligncenter alignright | numlist bullist',
+            toolbar: [ 
+            'bold italic underline | list | alignleft aligncenter alignright | numlist bullist',
             ],
             menubar: false
         });
-
-        $('#id_entry_date').datepicker({
-            language: 'en-US',
-            format: 'yyyy-mm-dd'
-        })
     })
 </script>
 

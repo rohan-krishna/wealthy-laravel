@@ -6,14 +6,28 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Welcome to Wealthy - {% block title %}{% endblock title %}</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.3/semantic.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/datepicker/0.6.5/datepicker.css">
 </head>
-<body>
+<body style="padding: 75px;">
     <div class="ui container fluid">
+
+        <div class="ui top fixed inverted menu">
+            <a href="{% url 'journal:index' %}" class="item">
+                Journal
+            </a>
+            <a href="{% url 'ideabin:index' %}" class="item">
+                IdeaBin
+            </a>
+        </div>
+
         {% block content %}
           
         {% endblock content %}
     </div>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.3/semantic.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/datepicker/0.6.5/datepicker.js"></script>
+    {% block scripts %}{% endblock scripts %}
 </body>
 </html>

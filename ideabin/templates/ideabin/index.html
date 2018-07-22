@@ -20,13 +20,15 @@ Ideabin
                 </tr>
             </thead>
             <tbody>
-                {% for idea in idea_list %}
+                {% for idea in ideas %}
                 <tr>
                     <td>
                         {{ forloop.counter }}
                     </td>
                     <td>
-                        {{ idea.title }}
+                        <a href="{{ idea.id }}">
+                            {{ idea.title }}
+                        </a>
                     </td>
                     <td>
                         {{ idea.created_at | date }}
