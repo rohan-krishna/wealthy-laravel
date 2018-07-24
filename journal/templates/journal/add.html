@@ -1,23 +1,24 @@
 {% extends "household/master.html" %}
+{% block title %}
+Add New Entry
+{% endblock title %}
 
 {% block content %}
 
-<div class="ui container">
+<div class="ui container fluid">
 
-    <div class="ui segment">
+    <!-- <div class="ui segment">
         <div class="ui breadcrumb">
             <a class="section" href="{% url 'journal:index' %}">Home</a>
         </div>
-    </div>
+    </div> -->
 
-    <div class="ui segment">
-        <h3>Add New Entry</h3>
-    
-        <form action="{% url 'journal:add' %}" class="ui form" method="post">
+    <div style="padding: 0 1.52em;">    
+        <form action="{% url 'journal:store' pk=entry.pk %}" class="ui form" method="post">
             {% csrf_token %}
             {{ form.as_p }}
             <button class="ui button green">
-                Submit
+                Done
             </button>
         </form>
     </div>
@@ -28,21 +29,50 @@
 {% block scripts %}
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/4.7.13/tinymce.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.9.1/underscore-min.js"></script>
 <script>
     $(document).ready(function () {
-        tinymce.init({
-            selector: '#id_body',
-            plugins: "lists",
-            toolbar: [
-                'bold italic underline | list | alignleft aligncenter alignright | numlist bullist',
-            ],
-            menubar: false
+
+        var title = $('#id_title').val();
+
+        $('#id_title').on('change', function(e) {
+            title = $(this).val();
         });
 
-        $('#id_entry_date').datepicker({
-            language: 'en-US',
-            format: 'yyyy-mm-dd'
-        })
+        tinymce.init({
+            selector: '#id_body',
+            toolbar: [
+            'bold italic underline | list | alignleft aligncenter alignright | numlist bullist',
+            ],
+            plugins: "lists",
+            menubar: false,
+            statusbar: false,
+            browser_spellcheck: true,
+            branding: false,
+            height: '70vh',
+            placeholder: 'Compose an Epic ...',
+            init_instance_callback: function(editor) {
+                editor.on('keydown', _.debounce(function(e) {
+                    // let's write an AJAX call to this here.
+
+                    $('.ui.green.button').toggleClass('loading');
+
+                    $.ajax({
+                        method: 'POST',
+                        data: {
+                            'csrfmiddlewaretoken' : $('input[name="csrfmiddlewaretoken"]').val(),
+                            'body': editor.getContent(),
+                            'title': title
+                        },
+                        success: function(res) {
+                            console.log(res.data)
+                            $('.ui.green.button').toggleClass('loading')
+                        }
+                    })
+                    // console.log(e.target)
+                }, 300))
+            }
+        });
     })
 </script>
 

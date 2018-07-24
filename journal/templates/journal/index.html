@@ -1,5 +1,7 @@
 {% extends "household/master.html" %}
 
+{% load humanize %}
+
 {% block content %}
 
     <div class="ui container">
@@ -31,16 +33,16 @@
                     <tr>
                         <td>{{ forloop.counter }}</td>
                         <td>{{ entry.title }}</td>
-                        <td>{{ entry.entry_date|date:"D, d M, Y" }}</td>
+                        <td>{{ entry.entry_date|naturaltime }}</td>
                         <td>
-                            <a class="ui animated orange button" tabindex="0" href="{% url 'journal:edit' entry.id %}">
+                            <a class="ui animated orange button" tabindex="0" href="{% url 'journal:create' entry.id %}">
                                 <div class="visible content">Edit Idea</div>
                                 <div class="hidden content">
                                     <i class="wrench icon"></i>
                                 </div>
                             </a>
                             <a class="ui animated red button" tabindex="0" href="{% url 'journal:delete' pk=entry.id %}">
-                                <div class="visible content">Delete Idea</div>
+                                <div class="visible content">Delete Entry</div>
                                 <div class="hidden content">
                                     <i class="trash icon"></i>
                                 </div>

@@ -5,6 +5,10 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 
 from django.views.generic import DeleteView
 from django.urls import reverse_lazy
+from django.utils import timezone
+import json
+
+from django.http import HttpResponse, JsonResponse
 
 from . models import Entry
 # Create your views here.
@@ -14,18 +18,46 @@ def index(request):
     entries = request.user.entries.all
     return render(request, 'journal/index.html', { "entries" : entries })
 
+
+# Never call this except from the Add New Entry Button
 @login_required
 def add(request):
     
-    if request.method == 'POST':
-        form = EntryForm(request.POST)
-        if form.is_valid():
-            entry = form.save(commit=False)
-            entry.user = request.user
-            entry.save()
-            return redirect('journal:index')
+    entry = Entry.objects.create(user=request.user)
+
+    return redirect('journal:create', pk=entry.pk)
+
+# A Pseudo redirect for creation page, can handle straight traffic too
+@login_required
+def create(request, pk):
+    if request.method == 'GET':
+        entry = Entry.objects.get(pk=pk)
+        form = EntryForm(instance=entry)
+        return render(request, 'journal/add.html', { "entry" : entry, "form" : form })
     else:
-        return render(request, 'journal/add.html', { "form" : EntryForm })
+        # let's just save the body and title content
+        data = request.POST
+
+        entry = Entry.objects.get(pk=pk)
+        entry.body = data['body']
+        entry.title = data['title']
+        entry.save()
+
+        return JsonResponse({ "message" : "Success!" })
+    
+
+# When the user submits, this should handle it
+@login_required
+def store(request, pk):
+    entry = Entry.objects.get(pk=pk)
+
+    form = EntryForm(request.POST, instance=entry)
+
+    if form.is_valid():
+        entry = form.save(commit=False)
+        entry.save()
+
+        return redirect('journal:index')
 
 @login_required
 def edit(request, id):
@@ -36,6 +68,7 @@ def edit(request, id):
         if form.is_valid():
             entry = form.save(commit=False)
             entry.user = request.user
+            entry.entry_date = timezone.now()
             entry.save()
 
             return redirect('journal:index')

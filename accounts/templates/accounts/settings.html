@@ -2,60 +2,67 @@
 
 {% block content %}
 
-  <h1 class="ui header" style="margin-bottom: 1.52em">
-    <i class="icon settings"></i>
-    Profile & Settings
-  </h1>
-  
-  <div class="ui grid">
-    <div class="six wide column">
-      <div class="ui segment green">
-        <h3>Social Media Connections</h3>
-        <hr class="ui divider">
-        <h3>GitHub</h3>
-        {% if github_login %}
-          <p>Connected as <a href="https://github.com/{{ github_login.extra_data.login }}/" target="_blank">{{ github_login.extra_data.login }}</a></p>
+  <div class="ui container">
+    <h1 class="ui header" style="margin-bottom: 1.52em">
+      <i class="icon settings"></i>
+      Profile & Settings
+    </h1>
+    
+    <div class="ui grid">
+      <div class="six wide column">
+        <div class="ui segment green">
+          <h3>Social Media Connections</h3>
+          <hr class="ui divider">
+          <h3>GitHub</h3>
+          {% if github_login %}
+          <p>Connected as
+            <a href="https://github.com/{{ github_login.extra_data.login }}/" target="_blank">{{ github_login.extra_data.login }}</a>
+          </p>
           {% if can_disconnect %}
-            <form method="post" action="{% url 'social:disconnect' 'github' %}">
-              {% csrf_token %}
-              <button type="submit" class="ui red labeled icon button">
-                <i class="icon github"></i>
-                Disconnect from GitHub
-              </button>
-            </form>
-          {% else %}
-            <button type="button" disabled class="ui red labeled icon button">
+          <form method="post" action="{% url 'social:disconnect' 'github' %}">
+            {% csrf_token %}
+            <button type="submit" class="ui red labeled icon button">
               <i class="icon github"></i>
               Disconnect from GitHub
             </button>
-            <p style="color: red">You must <a href="{% url 'accounts:set_password' %}">define a password</a> for your account before disconnecting from Github.</p>
-          {% endif %}
-        {% else %}
+          </form>
+          {% else %}
+          <button type="button" disabled class="ui red labeled icon button">
+            <i class="icon github"></i>
+            Disconnect from GitHub
+          </button>
+          <p style="color: red">You must
+            <a href="{% url 'accounts:set_password' %}">define a password</a> for your account before disconnecting from Github.</p>
+          {% endif %} {% else %}
           <a href="{% url 'social:begin' 'github' %}" class="ui black labeled icon button">
             <i class="icon github"></i>
             Connect to GitHub
           </a>
-        {% endif %}
+          {% endif %}
+        </div>
       </div>
-    </div>
-
-    <div class="ten wide column">
-      <div class="ui segment green">
-        <h3>User Information</h3>
-
-        <hr class="ui divider">
-
-        <p>
-          Username: {{ request.user.username }}
-        </p>
-
-        <p>
-          Email : <strong>{{ request.user.email }}</strong>
-        </p>
+    
+      <div class="ten wide column">
+        <div class="ui segment green">
+          <h3>User Information</h3>
+    
+          <hr class="ui divider">
+    
+          <p>
+            Username: {{ request.user.username }}
+          </p>
+    
+          <p>
+            Email :
+            <strong>{{ request.user.email }}</strong>
+          </p>
+        </div>
       </div>
+      <!-- /.ten wide column -->
     </div>
-    <!-- /.ten wide column -->
   </div>
+
+  
 
 
 {% endblock %}

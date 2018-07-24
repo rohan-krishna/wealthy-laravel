@@ -6,21 +6,23 @@ Confirm Delete
 
 {% block content %}
 
-<div class="ui segment">
-    <h1>Confirm Delete Entry : {{ entry.title }}</h1>
-
-
-    <form method="post">
-        {% csrf_token %}
-
-        <button class="ui red button">
-            Delete
-        </button>
-
-        <a href="{% url 'journal:index' %}" class="ui button blue">
-            Cancel
-        </a>
-    </form>      
+<div class="ui container">
+    <div class="ui segment">
+        <h1>Confirm Delete Entry : {{ entry.title }}</h1>
+    
+    
+        <form method="post">
+            {% csrf_token %}
+    
+            <button class="ui red button">
+                Delete
+            </button>
+    
+            <a href="{% url 'journal:index' %}" class="ui button blue">
+                Cancel
+            </a>
+        </form>      
+    </div>
 </div>
 
 {% endblock content %}
