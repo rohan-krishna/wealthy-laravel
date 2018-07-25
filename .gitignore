@@ -3,6 +3,5 @@
 __pycache__
 *.cnf
 db.sqlite3
-/static
 .DS_Store
 /wealthy/settings.py
