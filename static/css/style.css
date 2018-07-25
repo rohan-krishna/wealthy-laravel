@@ -1,0 +1,10 @@
+.site-wrapper {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    padding-top: 75px;
+}
+
+.site-content {
+    flex: 1;
+}
