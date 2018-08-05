@@ -1,4 +1,5 @@
-{% extends "household/master.html" %}
+{% extends "household/master_argon.html" %}
+{% load static %}
 
 {% block title %}
 Sign-in to Wealthy
@@ -7,8 +8,76 @@ Sign-in to Wealthy
 {% block content %}
 
 
+<div class="container pt-lg-md">
+    
+    <h3 class="text-center pb-5">Welcome to Wealthy</h3>
 
-<div class="ui container" style="padding-top: 3em;">
+    {% if messages %}
+        <div class="row justify-content-center">
+            <div class="col-lg-5">
+                <div class="ui message">
+                    <ul class="list-group">
+                        {% for message in messages %}
+                            <li {% if message.tags %} class="{{ message.tags }} list-group-item" {% endif %}>{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+    <div class="row justify-content-center">
+        <div class="col-lg-5">
+            <div class="card bg-secondary shadow border-0">
+                <div class="card-header bg-white pb-5">
+                    <div class="text-muted text-center mb-3">
+                        <small>Sign in with</small>
+                    </div>
+                    <div class="btn-wrapper text-center">
+                        <a href="{% url 'social:begin' 'github' %}" class="btn btn-neutral btn-icon">
+                            <span class="btn-inner--icon">
+                            <img src="{% static 'img/icons/common/github.svg' %}">
+                            </span>
+                            <span class="btn-inner--text">Github</span>
+                        </a>
+                    </div>
+                </div> <!-- .card-header -->
+                <div class="card-body px-lg-5 py-lg-5">
+                    <div class="text-center text-muted mb-4">
+                        <small>Or sign-in with credentials</small>
+                    </div>
+                    <form method="post">
+                        {% csrf_token %}
+                        
+                        <div class="form-group mb-3">
+                            <div class="input-group input-group-alternative">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="ni ni-email-83"></i></span>
+                                </div>
+                                <input class="form-control" placeholder="Enter Username" type="text" name="username">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="input-group input-group-alternative">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
+                                </div>
+                                <input class="form-control" placeholder="Password" type="password" name="password">
+                            </div>
+                        </div>
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-primary my-4">Sign in</button>
+                        </div>
+                    </form>
+                </div>
+                <!-- /.card-body -->
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- <div class="ui container" style="padding-top: 3em;">
     <div class="ui centered grid">
         <div class="twelve wide column">
             <div class="ui segment">
@@ -33,18 +102,7 @@ Sign-in to Wealthy
             </div>
         </div>
     </div>
-</div>
+</div> -->
 
-{% if messages %}
-<div class="ui container" style="margin-top: 1.52em;">
-    <div class="ui message">
-        <ul class="messages">
-            {% for message in messages %}
-                <li{% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
-            {% endfor %}
-        </ul>
-    </div>
-</div>
-{% endif %}
 
 {% endblock content %}
