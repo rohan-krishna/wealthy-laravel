@@ -12,12 +12,31 @@
 
     <!-- Theme CSS -->
     <link type="text/css" href="{% static 'css/argon.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <title>Wealthy - Powered By Argon & Bootstrap 4</title>
 </head>
-<body>
-    {% block content %}
-    {% endblock content %}
+<body class="site-wrapper">
 
+    {% if 'login' not in request.path %}
+    <header>
+        {% include 'household/navigation_argon.html' %}
+    </header>
+    {% endif %}
+
+    <main class="site-content">
+        {% block content %}
+        {% endblock content %}
+    </main>
+
+    {% if 'login' not in request.path %}
+    <footer class="footer">
+        <div class="container">
+            <p class="text-center">
+                &copy; 2018
+            </p>
+        </div>
+    </footer>
+    {% endif %}
     <!-- Core -->
     <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
     <script src="{% static 'vendor/popper/popper.min.js' %}"></script>
