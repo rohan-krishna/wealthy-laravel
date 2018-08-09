@@ -29,6 +29,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     '54.213.107.17',
+    'localhost',
 ]
 
 
@@ -41,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.humanize',
     'journal.apps.JournalConfig',
     'accounts.apps.AccountsConfig',
     'ideabin.apps.IdeabinConfig',
@@ -150,7 +152,9 @@ USE_TZ = True
 
 STATIC_ROOT = STATIC_DIR
 STATIC_URL = '/static/'
-STATIC_FILES_DIRS = [STATIC_DIR,]
+STATICFILES_DIRS = [ 
+    os.path.join(BASE_DIR, 'staticfiles/')
+]
 
 MEDIA_ROOT = MEDIA_DIR
 MEDIA_URL = '/media/'

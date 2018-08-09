@@ -1,0 +1,13 @@
+/*
+ * Style.css for the entire site
+*/
+.site-wrapper {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+.site-content {
+    flex: 1;
+}
+
