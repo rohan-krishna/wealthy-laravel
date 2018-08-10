@@ -1,4 +1,4 @@
-{% extends 'household/master.html' %}
+{% extends 'household/master_argon.html' %}
 
 {% load static %}
 
@@ -9,44 +9,36 @@ Showing Idea
 {% block content %}
 
 <div class="ui container" style="margin-top: 75px;">
-    
-    <h1 class="ui centered header" style="margin: 1.52em 0 1.52em;">
-        <i class="icon lightbulb outline"></i>
-        {{ idea_detail.title }}
-    </h1>
 
-    
-    <div class="ui grid">
-        {% if idea_detail.image %}
-        <div class="six wide column">
-                <div class="ui blue segment">
-                    <img src="{{ idea_detail.image.url }}" alt="{{ idea_detail.title }}" class="ui fluid image">
+    <div class="row">
+        <div class="col-sm-12 col-md-8 offset-md-2">
+            <div class="card">
+                {% if idea_detail.image %}
+                    <img src="{{ idea_detail.image.url }}" alt="{{ idea_detail.title }}" class="card-img-top">
+                {% endif %}
+                <div class="card-body">
+                    <h2 class="card-title">
+                        {{ idea_detail.title }}
+                    </h2>
+                    {% autoescape off %}
+                    {{ idea_detail.body }}
+                    {% endautoescape %}
                 </div>
-        </div>
-        {% endif %}
-        <div class="ten wide column">
-            <div class="ui segment blue">
-                {% autoescape off %}
-                {{ idea_detail.body }}
-                {% endautoescape %}
             </div>
         </div>
     </div>
 
-    <div class="ui segment">
-        <a class="ui animated blue button" tabindex="0" href="{% url 'ideabin:edit' pk=idea_detail.pk %}">
-            <div class="visible content">Edit</div>
-            <div class="hidden content">
-                <i class="wrench icon"></i>
-            </div>
-        </a>
-
-        <a class="ui animated red button" tabindex="0" href="{% url 'ideabin:delete' pk=idea_detail.pk %}">
-            <div class="visible content">Delete</div>
-            <div class="hidden content">
-                <i class="trash icon"></i>
-            </div>
-        </a>
+    <div class="row mt-5 text-center">
+        <div class="col-6">
+            <a class="btn btn-primary" href="{% url 'ideabin:edit' pk=idea_detail.pk %}">
+                Edit Idea
+            </a>
+        </div>
+        <div class="col-6">
+            <a class="btn btn-danger" href="{% url 'ideabin:delete' pk=idea_detail.pk %}">
+                Delete Idea
+            </a>
+        </div>
     </div>
 
 </div>

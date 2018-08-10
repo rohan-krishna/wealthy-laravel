@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-default">
     <div class="container">
-        <a class="navbar-brand" href="#">
+        <a class="navbar-brand" href="/">
             Wealthy
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-default" aria-controls="navbar-default"
@@ -11,8 +11,8 @@
             <div class="navbar-collapse-header">
                 <div class="row">
                     <div class="col-6 collapse-brand">
-                        <a href="index.html">
-                            <img src="assets/img/brand/blue.png">
+                        <a href="{% url 'journal:index' %}">
+                            Wealthy
                         </a>
                     </div>
                     <div class="col-6 collapse-close">
@@ -27,15 +27,15 @@
 
             <ul class="navbar-nav ml-lg-auto">
                 <li class="nav-item">
-                    <a class="nav-link nav-link-icon" href="#">
-                        <i class="ni ni-favourite-28"></i>
-                        <span class="nav-link-inner--text d-lg-none">Discover</span>
+                    <a class="nav-link nav-link-icon" href="{% url 'journal:index' %}" title="Journal">
+                        <i class="ni ni-paper-diploma"></i>
+                        <span class="nav-link-inner--text d-lg-none">Journal</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link nav-link-icon" href="#">
-                        <i class="ni ni-notification-70"></i>
-                        <span class="nav-link-inner--text d-lg-none">Profile</span>
+                    <a class="nav-link nav-link-icon" href="{% url 'ideabin:index' %}" title="IdeaBin">
+                        <i class="ni ni-atom"></i>
+                        <span class="nav-link-inner--text d-lg-none">IdeaBin</span>
                     </a>
                 </li>
                 {% if request.user.is_authenticated %}
