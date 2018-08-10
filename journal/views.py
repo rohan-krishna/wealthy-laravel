@@ -9,13 +9,18 @@ from django.utils import timezone
 import json
 
 from django.http import HttpResponse, JsonResponse
+from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 
 from . models import Entry
 # Create your views here.
 
 @login_required
 def index(request):
-    entries = request.user.entries.all
+    entries_list = request.user.entries.all()
+    paginator = Paginator(entries_list, 10)
+    page = request.GET.get('page')
+    entries = paginator.get_page(page)
+
     return render(request, 'journal/index.html', { "entries" : entries })
 
 

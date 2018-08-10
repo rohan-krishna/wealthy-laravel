@@ -1,57 +1,79 @@
-{% extends "household/master.html" %}
+{% extends "household/master_argon.html" %}
 
 {% load humanize %}
 
 {% block content %}
 
-<div class="ui container" style="margin-top: 75px;">
-        <div>
-            
-            <h1 class="ui centered header" style="margin-bottom: 1.52em;">
-                <i class="file alternate outline icon"></i>
-                List of Entries
-            </h1>
-            
-            <a class="ui animated green button" tabindex="0" href="{% url 'journal:add' %}">
-                <div class="visible content">Add New Entry</div>
-                <div class="hidden content">
-                    <i class="plus icon"></i>
-                </div>
-            </a>
+<div class="container">
+        <div class="mt-5">
 
-            <table class="ui celled padded green table">
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Title</th>
-                        <th>Entry Date</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for entry in entries %}
-                    <tr>
-                        <td>{{ forloop.counter }}</td>
-                        <td>{{ entry.title }}</td>
-                        <td>{{ entry.entry_date|naturaltime }}</td>
-                        <td>
-                            <a class="ui animated orange button" tabindex="0" href="{% url 'journal:create' entry.id %}">
-                                <div class="visible content">Edit Idea</div>
-                                <div class="hidden content">
-                                    <i class="wrench icon"></i>
+            <h1>
+                My Journal Entries
+            </h1>
+
+            <hr>
+
+            <p>
+                <a href="{% url 'journal:add' %}" class="btn btn-success">
+                    Add New Entry
+                </a>
+            </p>
+
+            <div class="table-responsive">
+                <table class="table table-bordered text-center">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Title</th>
+                            <th>Entry Date</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for entry in entries %}
+                        <tr>
+                            <td>{{ entry.title }}</td>
+                            <td>{{ entry.entry_date|naturaltime }}</td>
+                            <td>
+                                <div class="row">
+                                    <div class="col" style="margin-bottom: 1em;">
+                                        <a class="btn btn-success" tabindex="0" href="{% url 'journal:create' entry.id %}">
+                                            Edit Idea
+                                        </a>
+                                    </div>
+                                    <div class="col">
+                                        <a class="btn btn-danger" tabindex="0" href="{% url 'journal:delete' pk=entry.id %}">
+                                            Delete Entry
+                                        </a>
+                                    </div>
                                 </div>
-                            </a>
-                            <a class="ui animated red button" tabindex="0" href="{% url 'journal:delete' pk=entry.id %}">
-                                <div class="visible content">Delete Entry</div>
-                                <div class="hidden content">
-                                    <i class="trash icon"></i>
-                                </div>
-                            </a>
-                        </td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+
+
+                <nav>
+                    <ul class="pagination">
+                        {% for i in entries.paginator.page_range %}
+                            {% if entries.number == i %}
+                            <li class="page-item active">
+                                <a href="?page={{ i }}" class="page-link">
+                                    {{ i }}
+                                </a>
+                            </li>
+                            {% else %}
+                            <li class="page-item">
+                                <a href="?page={{ i }}" class="page-link">
+                                    {{ i }}
+                                </a>
+                            </li>
+                            {% endif %}
+                        {% endfor %}
+                    </ul>
+                </nav>
+
+            </div>
         </div>
     </div>
 
