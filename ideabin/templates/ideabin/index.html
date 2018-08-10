@@ -1,4 +1,4 @@
-{% extends "household/master.html" %}
+{% extends "household/master_argon.html" %}
 
 {% block title %}
 Ideabin 
@@ -6,62 +6,80 @@ Ideabin
 
 {% block content %}
 
-<div class="ui container" style="margin-top: 75px;">
+<div class="container mt-5">
     <div>
-        
-        <h1 class="ui centered header" style="margin-bottom: 1.52em;">
-            <i class="icon database"></i>
+        <h1 class="ui centered header">
+            <i class="ni ni-atom"></i>
             Listing All Ideas
         </h1>
 
-        <a class="ui animated green button" tabindex="0" href="{% url 'ideabin:add' %}">
-            <div class="visible content">Add New Idea</div>
-            <div class="hidden content">
-                <i class="plus icon"></i>
-            </div>
-        </a>
+        <p>
+            <a class="btn btn-success btn-icon" tabindex="0" href="{% url 'ideabin:add' %}">
+                <span class="btn-inner--icon">
+                    <i class="fa fa-plus"></i>
+                </span>    
+                <span class="btn-inner--text">
+                    Add New Idea
+                </span>
+            </a>
+        </p>
 
-        <table class="ui celled padded blue table">
-            <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Idea Title</th>
-                    <th>Created At</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for idea in ideas %}
-                <tr>
-                    <td>
-                        {{ forloop.counter }}
-                    </td>
-                    <td>
-                        <a href="{{ idea.id }}">
-                            {{ idea.title }}
-                        </a>
-                    </td>
-                    <td>
-                        {{ idea.created_at | date }}
-                    </td>
-                    <td>
-                        <a class="ui animated blue button" tabindex="0" href="{% url 'ideabin:edit' pk=idea.pk %}">
-                            <div class="visible content">Edit</div>
-                            <div class="hidden content">
-                                <i class="wrench icon"></i>
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Idea Title</th>
+                        <th>Created At</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for idea in ideas %}
+                    <tr>
+                        <td>
+                            {{ forloop.counter }}
+                        </td>
+                        <td>
+                            <a href="{{ idea.id }}">
+                                {{ idea.title }}
+                            </a>
+                        </td>
+                        <td>
+                            {{ idea.created_at | date }}
+                        </td>
+                        <td>
+                            <div class="row text-center">
+                                <div class="col mb-1">
+                                    <a class="btn btn-primary btn-icon" tabindex="0" href="{% url 'ideabin:edit' pk=idea.pk %}">
+                                        <span class="btn-inner--icon">
+                                            <i class="fa fa-edit"></i>
+                                        </span>
+                                        <span class="btn-inner--text">
+                                            Edit Idea
+                                        </span>
+                                    </a>
+                                </div>
+
+                                <div class="col">
+                                    <a class="btn btn-danger btn-icon" tabindex="0" href="{% url 'ideabin:delete' pk=idea.pk %}">
+                                        <span class="btn-inner--icon">
+                                            <i class="fa fa-trash"></i>
+                                        </span>
+                                        <span class="btn-inner--text">
+                                            Delete Idea
+                                        </span>
+                                    </a>
+                                </div>
+                                <!-- /.col -->
                             </div>
-                        </a>
-                        <a class="ui animated red button" tabindex="0" href="{% url 'ideabin:delete' pk=idea.pk %}">
-                            <div class="visible content">Delete</div>
-                            <div class="hidden content">
-                                <i class="trash icon"></i>
-                            </div>
-                        </a>
-                    </td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+                            
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
 
