@@ -1,14 +1,9 @@
-{% extends "household/master.html" %}
+{% extends "household/master_argon.html" %}
+{% load crispy_forms_tags %}
 
 {% block content %}
 
-<div class="ui container" style="margin-top: 75px;">
-
-    <div class="ui segment">
-        <div class="ui breadcrumb">
-            <a class="section" href="{% url 'ideabin:index' %}">Home</a>
-        </div>
-    </div>
+<div class="container-fluid p-3">
 
     <div class="ui segment">
         <h1>
@@ -21,8 +16,8 @@
     
         <form class="ui form" method="post" enctype="multipart/form-data">
             {% csrf_token %}
-            {{ form.as_p }}
-            <button class="ui button green">
+            {{ form|crispy }}
+            <button class="btn btn-success">
                 Submit
             </button>
         </form>
@@ -38,11 +33,16 @@
     $(document).ready(function () {
         tinymce.init({
             selector: '#id_body',
-            plugins: "lists",
             toolbar: [
-                'bold italic underline | list | alignleft aligncenter alignright | numlist bullist',
+            'bold italic underline blockquote fontsizeselect | list | alignleft aligncenter alignright | numlist bullist | table codesample forecolor backcolor emoticons | fullscreen',
             ],
-            menubar: false
+            plugins: ["lists","fullscreen","codesample","textcolor colorpicker","emoticons","advlist", "table", ],
+            menubar: false,
+            statusbar: false,
+            browser_spellcheck: true,
+            branding: false,
+            height: '70vh',
+            placeholder: 'Compose an Epic ...',
         });
     })
 </script>

@@ -13,7 +13,7 @@
     <!-- Theme CSS -->
     <link type="text/css" href="{% static 'css/argon.css' %}" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
-    <title>Wealthy - Powered By Argon & Bootstrap 4</title>
+    <title>Wealthy - {% block title %}{% endblock %}</title>
 </head>
 <body class="site-wrapper">
 
@@ -32,7 +32,10 @@
     <footer class="footer">
         <div class="container">
             <p class="text-center">
-                &copy; 2018
+                Made with <i class="fa fa-heart" style="color: #ff1744"></i> for Django & Coffee.
+            </p>
+            <p class="text-center">
+                Thank you Tim for <a href="https://creative-tim.com">Argon Design System.</a>
             </p>
         </div>
     </footer>
@@ -44,5 +47,7 @@
 
     <!-- Theme JS -->
     <script src="{% static 'js/argon.min.js' %}"></script>
+
+    {% block scripts %}{% endblock scripts %}
 </body>
 </html>

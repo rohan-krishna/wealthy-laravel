@@ -31,6 +31,7 @@ Ideabin
                         <th>#</th>
                         <th>Idea Title</th>
                         <th>Created At</th>
+                        <th>Last Updated On</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -46,7 +47,10 @@ Ideabin
                             </a>
                         </td>
                         <td>
-                            {{ idea.created_at | date }}
+                            {{ idea.created_at }}
+                        </td>
+                        <td>
+                            {{ idea.updated_at }}
                         </td>
                         <td>
                             <div class="row text-center">

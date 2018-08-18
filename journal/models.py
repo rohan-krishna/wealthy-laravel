@@ -13,6 +13,8 @@ class Entry(models.Model):
 
     class Meta:
         verbose_name_plural = 'entries'
+        ordering = ['-updated_at']
+
 
     def __str__(self):
         return self.title

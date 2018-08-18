@@ -29,6 +29,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     '54.213.107.17',
+    'wealthy.bluehexagon.in',
 ]
 
 
@@ -46,7 +47,10 @@ INSTALLED_APPS = [
     'accounts.apps.AccountsConfig',
     'ideabin.apps.IdeabinConfig',
     'social_django',
+    'crispy_forms',
 ]
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
